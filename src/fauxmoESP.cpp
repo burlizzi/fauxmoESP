@@ -207,7 +207,7 @@ bool fauxmoESP::_onTCPList(AsyncClient *client, String url, String body) {
 	if (-1 == pos) return false;
 
 	// Get the id
-	unsigned char id = url.substring(pos+7).toInt();
+	unsigned char id = url.substring(pos+24).toInt();
 
 	// This will hold the response string	
 	String response;
@@ -218,7 +218,7 @@ bool fauxmoESP::_onTCPList(AsyncClient *client, String url, String body) {
 		response += "{";
 		for (unsigned char i=0; i< _devices.size(); i++) {
 			if (i>0) response += ",";
-			response += "\"" + String(i+1) + "\":" + _deviceJson(i, false);	// send short template
+			response += "\"" + String(WiFi.macAddress()) + String(i+1) + "\":" + _deviceJson(i, false);	// send short template
 		}
 		response += "}";
 
@@ -253,7 +253,7 @@ bool fauxmoESP::_onTCPControl(AsyncClient *client, String url, String body) {
 		DEBUG_MSG_FAUXMO("[FAUXMO] Handling state request\n");
 
 		// Get the index
-		unsigned char id = url.substring(pos+7).toInt();
+		unsigned char id = url.substring(pos+24).toInt();
 		if (id > 0) {
 
 			--id;
