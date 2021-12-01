@@ -238,7 +238,8 @@ bool fauxmoESP::_onTCPControl(AsyncClient *client, String url, String body) {
 	// "devicetype" request
 	if (body.indexOf("devicetype") > 0) {
 		DEBUG_MSG_FAUXMO("[FAUXMO] Handling devicetype request\n");
-		_sendTCPResponse(client, "200 OK", (char *) "[{\"success\":{\"username\": \"2WLEDHardQrI3WHYTHoMcXHgEspsM8ZZRpSKtBQr\"}}]", "application/json");
+		String username = String("[{\"success\":{\"username\": \"")+WiFi.macAddress()+"\"}}]";
+		_sendTCPResponse(client, "200 OK", (char *) username.c_str(), "application/json");
 		return true;
 	}
 
