@@ -122,6 +122,10 @@ String fauxmoESP::_deviceJson(unsigned char id, bool all = true) {
 
 	if (all)
 	{
+		if (_getCallback) {
+			_getCallback(id, _devices[id].name, _devices[id].state, _devices[id].value);
+		}
+
 		snprintf_P(
 			buffer, sizeof(buffer),
 			FAUXMO_DEVICE_JSON_TEMPLATE,
@@ -272,6 +276,7 @@ bool fauxmoESP::_onTCPControl(AsyncClient *client, String url, String body) {
 			}
 
 			char response[strlen_P(FAUXMO_TCP_STATE_RESPONSE)+10];
+
 			snprintf_P(
 				response, sizeof(response),
 				FAUXMO_TCP_STATE_RESPONSE,
