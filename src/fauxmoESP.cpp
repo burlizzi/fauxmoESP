@@ -248,8 +248,8 @@ bool fauxmoESP::_onTCPControl(AsyncClient *client, String url, String body) {
 	}
 
 	// "state" request
-	if ((url.indexOf("state") > 0) && (body.length() > 0)) {
-
+	int state_pos=url.indexOf("state");
+	if ( state_pos> 0)  {
 		// Get the index
 		int pos = url.indexOf("lights");
 		if (-1 == pos) return false;
@@ -257,22 +257,27 @@ bool fauxmoESP::_onTCPControl(AsyncClient *client, String url, String body) {
 		DEBUG_MSG_FAUXMO("[FAUXMO] Handling state request\n");
 
 		// Get the index
-		unsigned char id = url.substring(pos+24).toInt();
+		unsigned char id = url.substring(pos+24,state_pos-1).toInt();
 		if (id > 0) {
 
 			--id;
-
-			// Brightness
-			pos = body.indexOf("bri");
-			if (pos > 0) {
-				unsigned char value = body.substring(pos+5).toInt();
-				_devices[id].value = value;
-				_devices[id].state = (value > 0);
-			} else if (body.indexOf("false") > 0) {
-				_devices[id].state = false;
-			} else {
-				_devices[id].state = true;
-				if (0 == _devices[id].value) _devices[id].value = 255;
+			if(body.length() > 0)
+			{
+				// Brightness
+				pos = body.indexOf("bri");
+				if (pos > 0) {
+					unsigned char value = body.substring(pos+5).toInt();
+					_devices[id].value = value;
+					_devices[id].state = (value > 0);
+				} else if (body.indexOf("false") > 0) {
+					_devices[id].state = false;
+				} else {
+					_devices[id].state = true;
+					if (0 == _devices[id].value) _devices[id].value = 255;
+				}
+				if (_setCallback) {
+					_setCallback(id, _devices[id].name, _devices[id].state, _devices[id].value);
+				}
 			}
 
 			char response[strlen_P(FAUXMO_TCP_STATE_RESPONSE)+10];
@@ -284,9 +289,6 @@ bool fauxmoESP::_onTCPControl(AsyncClient *client, String url, String body) {
 			);
 			_sendTCPResponse(client, "200 OK", response, "text/xml");
 
-			if (_setCallback) {
-				_setCallback(id, _devices[id].name, _devices[id].state, _devices[id].value);
-			}
 
 			return true;
 
