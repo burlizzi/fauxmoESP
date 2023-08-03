@@ -9,7 +9,7 @@
     "version": "3.4",
     "license": "MIT",
     "exclude": "tests",
-    "frameworks": "arduino",
+    "exframeworks": "arduino",
     "platforms": ["espressif8266", "espressif32"],
     "authors": {
         "name": "Paul Vint",
