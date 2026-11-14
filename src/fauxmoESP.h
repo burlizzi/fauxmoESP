@@ -75,6 +75,12 @@ typedef struct {
     char uniqueid[28];
 } fauxmoesp_device_t;
 
+struct WiFiClass{
+	IPAddress ip;
+	String mac;
+	IPAddress  localIP()return ip;}
+    String macAddress(){return mac;}
+}
 class fauxmoESP {
 
     public:
