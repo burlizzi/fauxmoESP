@@ -35,6 +35,8 @@ THE SOFTWARE.
 #define FAUXMO_RX_TIMEOUT           3
 #define FAUXMO_DEVICE_UNIQUE_ID_LENGTH  12
 
+
+#pragma warning THIS IS THE NEW FAUXMO
 #define DEBUG_MSG_FAUXMO(...) { ESP_LOGI("fauxmo", ## __VA_ARGS__);}; 
 
 #ifndef DEBUG_FAUXMO_VERBOSE_TCP
