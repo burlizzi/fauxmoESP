@@ -38,10 +38,13 @@ THE SOFTWARE.
 //#define DEBUG_FAUXMO                Serial
 #ifdef DEBUG_FAUXMO
     #if defined(ARDUINO_ARCH_ESP32)
+/*
         #define DEBUG_MSG_FAUXMO(fmt, ...) { DEBUG_FAUXMO.printf_P((PGM_P) PSTR(fmt), ## __VA_ARGS__); }
     #else
         #define DEBUG_MSG_FAUXMO(fmt, ...) { DEBUG_FAUXMO.printf(fmt, ## __VA_ARGS__); }
     #endif
+	*/
+        #define DEBUG_MSG_FAUXMO(fmt, ...) { ESP_LOGI("fauxmo",fmt, ## __VA_ARGS__);}; 
 #else
     #define DEBUG_MSG_FAUXMO(...)
 #endif
