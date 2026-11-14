@@ -86,7 +86,7 @@ class fauxmoESP {
     public:
 
         ~fauxmoESP();
-		void setWiFi(WiFiClass& wifi) { WiFi = wifi;}
+		void setWiFi(WiFiClass wifi) { WiFi = wifi;}
         unsigned char addDevice(const char * device_name);
         bool renameDevice(unsigned char id, const char * device_name);
         bool renameDevice(const char * old_device_name, const char * new_device_name);
