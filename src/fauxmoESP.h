@@ -78,7 +78,7 @@ typedef struct {
 struct WiFiClass1{
 	IPAddress ip;
 	String mac;
-	IPAddress  localIP()return ip;}
+	IPAddress  localIP() { return ip;}
     String macAddress(){return mac;}
 }
 class fauxmoESP {
