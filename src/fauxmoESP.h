@@ -86,7 +86,7 @@ class fauxmoESP {
     public:
 
         ~fauxmoESP();
-		void setWiFi(WiFiClass1 wifi) { WiFi = wifi;}
+		void setWiFi(IPAddress ip, String mac) { WiFi.ip = ip; WiFi.mac=mac;}
         unsigned char addDevice(const char * device_name);
         bool renameDevice(unsigned char id, const char * device_name);
         bool renameDevice(const char * old_device_name, const char * new_device_name);
@@ -108,7 +108,7 @@ class fauxmoESP {
     private:
 
         AsyncServer * _server;
-        WiFiClass1& WiFi{*(WiFiClass1*)NULL};
+        WiFiClass1 WiFi;
         bool _enabled = false;
         bool _internal = true;
         unsigned int _tcp_port = FAUXMO_TCP_PORT;
