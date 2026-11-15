@@ -75,7 +75,7 @@ typedef struct {
     char uniqueid[28];
 } fauxmoesp_device_t;
 
-struct WiFiClass{
+struct WiFiClass1{
 	IPAddress ip;
 	String mac;
 	IPAddress  localIP()return ip;}
@@ -86,7 +86,7 @@ class fauxmoESP {
     public:
 
         ~fauxmoESP();
-		void setWiFi(WiFiClass wifi) { WiFi = wifi;}
+		void setWiFi(WiFiClass1 wifi) { WiFi = wifi;}
         unsigned char addDevice(const char * device_name);
         bool renameDevice(unsigned char id, const char * device_name);
         bool renameDevice(const char * old_device_name, const char * new_device_name);
@@ -108,7 +108,7 @@ class fauxmoESP {
     private:
 
         AsyncServer * _server;
-        WiFiClass& WiFi{*(WiFiClass*)NULL};
+        WiFiClass1& WiFi{*(WiFiClass1*)NULL};
         bool _enabled = false;
         bool _internal = true;
         unsigned int _tcp_port = FAUXMO_TCP_PORT;
