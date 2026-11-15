@@ -80,7 +80,7 @@ struct WiFiClass1{
 	String mac;
 	IPAddress  localIP() { return ip;}
     String macAddress(){return mac;}
-}
+};
 class fauxmoESP {
 
     public:
